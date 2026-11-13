@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>opencc_purepyweb — Chinese Conversion Tool</title>
     <link rel="stylesheet" href="./styles.css">
-<!--    <link rel="icon" href="data:,">-->
+    <!--    <link rel="icon" href="data:,">-->
     <script type="module" src="./app.js"></script>
 </head>
 <body>
@@ -82,10 +82,11 @@
         </div>
         <div id="officeDrop" class="office-drop" role="button" tabindex="0" aria-disabled="false">
             <strong>Click to open or drop a document, EPUB or text file here</strong>
-            <small>DOCX, XLSX, PPTX, EPUB, TXT, MD — converted locally in your browser; nothing is uploaded</small>
+            <small>DOCX, XLSX, PPTX, ODT, ODS, ODP, EPUB, TXT, MD — converted locally in your browser; nothing is
+                uploaded</small>
             <small>TXT/MD: detect encoding when enabled, or use the selected encoding. Office/EPUB conversion requires
                 Initialize Pyodide.</small>
-            <input id="officeFile" type="file" accept=".docx,.xlsx,.pptx,.epub,.txt,.md" hidden>
+            <input id="officeFile" type="file" accept=".docx,.xlsx,.pptx,.odt,.ods,.odp,.epub,.txt,.md" hidden>
         </div>
         <div id="officeResult" class="office-result" hidden>
             <span id="officeResultText"></span>
