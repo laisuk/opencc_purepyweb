@@ -1,0 +1,471 @@
+:root {
+            color-scheme: light;
+            --page: #f5f7fb;
+            --surface: #ffffff;
+            --surface-soft: #f8faff;
+            --text: #17243a;
+            --muted: #65748b;
+            --border: #dfe5ee;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-soft: #eaf1ff;
+            --shadow: 0 8px 28px rgba(28, 47, 83, .055);
+            --editor-bg: #fff;
+            --editor-gutter: #f8faff;
+            --editor-line: #a0aec0;
+            --focus: rgba(37, 99, 235, .24);
+        }
+
+        :root[data-theme="dark"] {
+            color-scheme: dark;
+            --page: #0d1421;
+            --surface: #151f30;
+            --surface-soft: #1b2940;
+            --text: #e8eef9;
+            --muted: #a2b1c8;
+            --border: #304158;
+            --accent: #80aaff;
+            --accent-hover: #a4c2ff;
+            --accent-soft: #213a60;
+            --shadow: 0 8px 30px rgba(0, 0, 0, .18);
+            --editor-bg: #151f30;
+            --editor-gutter: #19273a;
+            --editor-line: #8194af;
+            --focus: rgba(128, 170, 255, .3);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--page);
+            color: var(--text);
+            font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .app-shell {
+            max-width: 1480px;
+            margin: 0 auto;
+            padding: 28px clamp(14px, 3vw, 42px) 48px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: clamp(23px, 2.6vw, 30px);
+            letter-spacing: -.035em;
+            line-height: 1.25;
+        }
+
+        .brand p {
+            margin: 5px 0 0;
+            color: var(--muted);
+        }
+
+        .brand-mark {
+            color: var(--accent);
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-heading {
+            margin: 0 0 14px;
+            font-size: 16px;
+            font-weight: 650;
+        }
+
+        .config-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .config-row select {
+            min-width: 160px;
+        }
+
+        .config-description {
+            color: var(--muted);
+        }
+
+        .supported-line {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .editor-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 18px;
+            margin: 18px 0;
+        }
+
+        .editor-grid > .panel + .panel {
+            margin-top: 0;
+        }
+
+        .editor-panel {
+            min-width: 0;
+        }
+
+        .editor-header {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .editor-header h3 {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        .char-count {
+            color: var(--muted);
+            font-weight: 400;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        button, select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 9px;
+            border: 1px solid var(--border);
+            background: var(--surface-soft);
+            color: var(--text);
+            font-weight: 550;
+            transition: background .15s, border-color .15s;
+        }
+
+        button:hover:not(:disabled) {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        button:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+        button.primary {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+            padding-inline: 24px;
+        }
+
+        button.primary:hover:not(:disabled) {
+            background: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+
+        .theme-toggle {
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        select {
+            padding: 8px 30px 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: var(--text);
+            background: var(--surface);
+            max-width: 100%;
+        }
+
+        button:focus-visible, select:focus-visible, input:focus-visible, .office-drop:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        .dictionary-heading, .dictionary-fields, .dictionary-actions, .dictionary-entries-heading {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .dictionary-heading {
+            margin-bottom: 12px;
+        }
+
+        .dictionary-heading h3 {
+            margin: 0;
+        }
+
+        .dictionary-entries-heading {
+            margin-top: 12px;
+        }
+
+        .dictionary-status {
+            border-radius: 999px;
+            padding: 3px 10px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .dictionary-help {
+            color: var(--muted);
+        }
+
+        .dictionary-card {
+            min-width: 0;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface-soft);
+        }
+
+        .dictionary-fields label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dictionary-remove {
+            color: #f87171;
+        }
+
+        /*.dictionary-remove:hover {*/
+        /*    color: #fca5a5;*/
+        /*    border-color: #f87171;*/
+        /*}*/
+
+        .dictionary-card textarea {
+            display: block;
+            width: 100%;
+            min-height: 130px;
+            margin-top: 10px;
+            padding: 10px;
+            resize: vertical;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--editor-bg);
+            color: var(--text);
+            font: 14px/1.5 ui-monospace, monospace;
+            tab-size: 4;
+        }
+
+        .dictionary-card textarea:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 2px;
+        }
+
+        .editor-box {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--editor-bg);
+        }
+
+        .cm-editor {
+            height: 360px;
+            font-size: 16px;
+            background: var(--editor-bg) !important;
+            color: var(--text) !important;
+        }
+
+        .cm-editor.cm-focused {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+
+        .cm-scroller {
+            overflow: auto;
+            font-family: Consolas, "Cascadia Code", "Microsoft YaHei", monospace;
+        }
+
+        .cm-editor .cm-content {
+            caret-color: var(--text);
+        }
+
+        .cm-editor .cm-cursor {
+            border-left-color: var(--text);
+        }
+
+        .cm-editor .cm-gutters {
+            background: var(--editor-gutter);
+            color: var(--editor-line);
+            border-right: 1px solid var(--border);
+        }
+
+        .cm-editor .cm-activeLine, .cm-editor .cm-activeLineGutter {
+            background: var(--accent-soft);
+        }
+
+        .cm-editor .cm-selectionBackground, .cm-editor.cm-focused .cm-selectionBackground,
+        .cm-editor .cm-content ::selection {
+            background: var(--focus) !important;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px 16px;
+        }
+
+        .controls label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        input[type="checkbox"] {
+            accent-color: var(--accent);
+            width: 16px;
+            height: 16px;
+        }
+
+        .file-name {
+            color: var(--muted);
+            overflow-wrap: anywhere;
+        }
+
+        .file-actions {
+            margin-top: 14px;
+        }
+
+        .encoding-row {
+            margin-top: 14px;
+        }
+
+        .office-drop {
+            margin-top: 18px;
+            padding: 28px 16px;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            background: var(--surface-soft);
+            transition: background .15s, border-color .15s;
+        }
+
+        .office-drop:hover:not(.disabled), .office-drop.dragover {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .office-drop.disabled {
+            opacity: .55;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .office-drop small {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+        }
+
+        .office-result {
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        .office-result[hidden], [hidden] {
+            display: none !important;
+        }
+
+        pre {
+            margin: 0;
+            background: var(--surface-soft);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            color: var(--text);
+            font: 13px/1.6 Consolas, "Cascadia Code", monospace;
+        }
+
+        @media (max-width: 900px) {
+            .editor-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .cm-editor {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-shell {
+                padding: 16px 10px 30px;
+            }
+
+            .panel {
+                padding: 14px;
+                border-radius: 12px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .cm-editor {
+                height: 240px;
+            }
+
+            .toolbar button {
+                padding: 7px 10px;
+            }
+
+            .brand h1 {
+                font-size: 21px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition: none !important;
+            }
+        }
+
+/* Pyodide-specific opt-in controls and diagnostics. */
+.engine-status { display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap; }
+.engine-status strong {overflow-wrap:anywhere;}
+#out {max-height:360px;overflow:auto;}
+.test-actions {margin-top:14px;}
+.status-note {margin:12px 0 0;color:var(--muted);font-size:12px;}
+.editor-textarea-fallback{width:100%;min-height:360px;padding:14px;resize:vertical;background:var(--editor-bg);color:var(--text);border:0;font:16px/1.55 Consolas,"Microsoft YaHei",monospace;}
+@media(max-width:900px){.editor-textarea-fallback{min-height:300px;}}
+@media(max-width:480px){.editor-textarea-fallback{min-height:240px;}}

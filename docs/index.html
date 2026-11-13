@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>opencc_purepyweb — Chinese Conversion Tool</title>
+    <link rel="stylesheet" href="./styles.css">
+<!--    <link rel="icon" href="data:,">-->
+    <script type="module" src="./app.js"></script>
+</head>
+<body>
+<div class="app-shell">
+    <header class="topbar">
+        <div class="brand">
+            <h1><span class="brand-mark">◈</span> opencc_purepyweb</h1>
+            <p>CJK Conversion Tool · Pyodide · opencc_purepy 1.5.2</p>
+        </div>
+        <button id="themeToggle" type="button" class="theme-toggle" aria-pressed="false">☾ Dark</button>
+    </header>
+    <section class="panel" aria-label="Python engine status">
+        <div class="engine-status">
+            <strong id="engineStatus" role="status" aria-live="polite">Not initialized</strong>
+            <button id="initialize" type="button" class="primary">Initialize Pyodide</button>
+        </div>
+        <p class="status-note">Python runs locally in your browser. Pyodide and its dictionaries load only after you
+            press Initialize.</p>
+    </section>
+    <section class="panel" aria-label="Conversion settings">
+        <div class="config-row">
+            <label for="config"><strong>Configuration</strong></label>
+            <select id="config" disabled></select>
+            <span id="configDescription" class="config-description"></span>
+        </div>
+        <div class="supported-line"><strong>Supported configs:</strong> <span
+                id="supported">Initialize Pyodide to view</span></div>
+    </section>
+    <div class="editor-grid">
+        <section class="panel editor-panel" aria-label="Input editor">
+            <div class="editor-header"><h3>Input</h3><span class="char-count">(<span id="inputCount">0</span> characters)</span>
+            </div>
+            <div class="toolbar">
+                <button id="pasteBtn" type="button">Paste</button>
+                <button id="normalizeBtn" type="button" disabled>Normalize</button>
+                <button id="gbMojibakeBtn" type="button">GB Mojibake</button>
+                <button id="clearInputBtn" type="button">Clear</button>
+            </div>
+            <div id="editor-left" class="editor-box"></div>
+        </section>
+        <section class="panel editor-panel" aria-label="Output editor">
+            <div class="editor-header"><h3>Output</h3><span class="char-count">(<span id="outputCount">0</span> characters)</span>
+            </div>
+            <div class="toolbar">
+                <button id="copyBtn" type="button">Copy</button>
+                <button id="deTofuBtn" type="button" disabled>DeTofu</button>
+                <button id="clearOutputBtn" type="button">Clear</button>
+                <button id="downloadOutputBtn" type="button">Download</button>
+            </div>
+            <div id="editor-right" class="editor-box"></div>
+        </section>
+    </div>
+    <section class="panel" aria-label="Text conversion and file tools">
+        <div class="controls"><label><input type="checkbox" id="punctuation"> Enable punctuation conversion</label>
+        </div>
+        <div class="controls file-actions">
+            <input id="textFile" type="file" accept=".txt,.md" hidden>
+            <button id="openFileBtn" type="button">Open File</button>
+            <button id="btn" type="button" class="primary" disabled>Convert →</button>
+            <span id="openedFileName" class="file-name"></span>
+        </div>
+        <div class="controls encoding-row"><label><input type="checkbox" id="autoDetectDropEncoding" checked>
+            Auto-detect text encoding in Drop Zone</label></div>
+        <div class="controls encoding-row">
+            <label for="textEncoding">Text file encoding:</label>
+            <select id="textEncoding">
+                <option value="utf-8" selected>UTF-8</option>
+                <option value="utf-16le">UTF-16 LE</option>
+                <option value="utf-16be">UTF-16 BE</option>
+                <option value="gb18030">GB18030 / GBK</option>
+                <option value="big5">Big5</option>
+                <option value="shift_jis">Shift-JIS</option>
+            </select>
+        </div>
+        <div id="officeDrop" class="office-drop" role="button" tabindex="0" aria-disabled="false">
+            <strong>Click to open or drop a document, EPUB or text file here</strong>
+            <small>DOCX, XLSX, PPTX, EPUB, TXT, MD — converted locally in your browser; nothing is uploaded</small>
+            <small>TXT/MD: detect encoding when enabled, or use the selected encoding. Office/EPUB conversion requires
+                Initialize Pyodide.</small>
+            <input id="officeFile" type="file" accept=".docx,.xlsx,.pptx,.epub,.txt,.md" hidden>
+        </div>
+        <div id="officeResult" class="office-result" hidden>
+            <span id="officeResultText"></span>
+            <button id="officeDownloadBtn" type="button">Download converted file</button>
+        </div>
+    </section>
+    <section class="panel" aria-labelledby="dictionaryHeading">
+        <div class="dictionary-heading">
+            <h3 id="dictionaryHeading" class="section-heading">Custom Dictionaries</h3>
+            <span id="dictionaryStatus" class="dictionary-status" role="status" aria-live="polite">Default</span>
+        </div>
+        <p id="dictionaryHelp" class="dictionary-help">Enter source and target separated by a TAB (paste it or press Tab
+            in the entry box; Escape then Tab leaves it). Blank lines and # comments are ignored. As in the CLI, only
+            the first target word is used. Each slot may appear once. Slots affect only configurations that use
+            them.</p>
+        <div id="dictionaryCards"></div>
+        <div class="dictionary-actions">
+            <button id="addDictionaryBtn" type="button" disabled>Add New Custom Dictionary</button>
+            <button id="applyDictionariesBtn" type="button" class="primary" disabled>Apply Dictionaries</button>
+            <button id="resetDictionariesBtn" type="button" disabled>Reset to Default</button>
+        </div>
+        <p class="dictionary-help">Edits are drafts until applied. Reset restores default dictionaries and retains draft
+            cards for editing.</p>
+    </section>
+    <section class="panel" aria-label="Status and diagnostics">
+        <h3 class="section-heading">Status / Diagnostics</h3>
+        <pre id="out" role="status" aria-live="polite">Not initialized. Click Initialize Pyodide when you want to convert.</pre>
+        <div class="controls test-actions">
+            <button id="smoke" type="button" disabled>Run smoke tests</button>
+            <button id="large" type="button" disabled>Test parallel threshold (1M+)</button>
+            <button id="clearLogs" type="button">Clear Logs</button>
+        </div>
+        <p class="status-note">The 1.2M-character test checks the Emscripten serial fallback added in opencc_purepy
+            v1.5.2; its output is verified, not displayed.</p>
+    </section>
+    <footer class="status-note">Pure Python inside WebAssembly. Local conversion; no server-side text processing. Engine
+        loaded only on demand.
+    </footer>
+</div>
+</body>
+</html>

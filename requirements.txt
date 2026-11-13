@@ -1,0 +1,8 @@
+# No pip dependencies are required for this static Pyodide web project.
+#
+# Local development uses Python's built-in HTTP server:
+#   python -m http.server 8000 --directory docs
+#
+# The browser loads Pyodide 0.27.7 from a CDN and installs the bundled
+# opencc_purepy-1.5.1-py3-none-any.whl using Pyodide's micropip.
+# Do not add pyodide or opencc-purepy here: pip on the host is not used.
