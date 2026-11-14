@@ -5,7 +5,7 @@
 import {detectCjkEncoding} from "./cjkEncodingDetector.js";
 
 const $ = id => document.getElementById(id);
-const PYODIDE_VERSION = "0.27.7";
+const PYODIDE_VERSION = "314.0.8";
 const WHEEL_NAME = "opencc_purepy-1.5.2-py3-none-any.whl";
 const PYODIDE_CDN = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
 let pyodide = null;
