@@ -1,12 +1,14 @@
 "use strict";
 
-// Reference UI: Opencc-Fmmseg WASM demo. Engine: unmodified opencc_purepy 1.5.2.
+// Reference UI: Opencc-Fmmseg WASM demo. Engine: unmodified opencc_purepy 1.5.3.
 // Pyodide is intentionally NOT downloaded until Initialize Pyodide is clicked.
 import {detectCjkEncoding} from "./cjkEncodingDetector.js";
 
 const $ = id => document.getElementById(id);
+const PACKAGE_VERSION = "1.5.3";
+const PYPI_VERSION = "1.5.2";
+const WHEEL_NAME = `opencc_purepy-${PACKAGE_VERSION}-py3-none-any.whl`;
 const PYODIDE_VERSION = "314.0.8";
-const WHEEL_NAME = "opencc_purepy-1.5.3-py3-none-any.whl";
 const PYODIDE_CDN = `https://cdn.jsdelivr.net/pyodide/v${PYODIDE_VERSION}/full/`;
 let pyodide = null;
 let ready = false;
@@ -278,8 +280,9 @@ async function initialize() {
             setPy("_web_wheel_url", url);
             await pyRun("import micropip\nawait micropip.install(_web_wheel_url)");
         } else {
-            status("Local wheel absent; installing opencc-purepy==1.5.2 from PyPI...");
-            await pyRun("import micropip\nawait micropip.install('opencc-purepy==1.5.2')");
+            status(`Local wheel absent; installing opencc-purepy==${PYPI_VERSION} from PyPI...`);
+            setPy("_web_package_spec", `opencc-purepy==${PYPI_VERSION}`);
+            await pyRun("import micropip\nawait micropip.install(_web_package_spec)");
         }
         status("Importing engine and loading dictionaries...");
         await pyRun(String.raw`
@@ -327,7 +330,13 @@ def _web_replace_dictionaries(json_specs, reset=False):
         updateConfigDescription();
         $("supported").textContent = configs.join(", ");
         ready = true;
-        status(`Ready: ${configs.length} configs; wheel 1.5.2; ${availableDictionarySlots.length} dictionary slots`);
+        await pyRun(`
+from importlib.metadata import version
+_web_version = version("opencc-purepy")
+`);
+        const installedVersion = pyResult("_web_version");
+        $("packageVersion").textContent = installedVersion;
+        status(`Ready: ${configs.length} configs; wheel ${installedVersion}; ${availableDictionarySlots.length} dictionary slots`);
     });
 }
 
