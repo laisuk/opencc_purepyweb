@@ -45,7 +45,7 @@
                 <button id="pasteBtn" type="button">Paste</button>
                 <button id="normalizeBtn" type="button" disabled>Normalize</button>
                 <button id="gbMojibakeBtn" type="button">GB Mojibake</button>
-                <button id="clearInputBtn" type="button">Clear</button>
+                <button id="clearInputBtn" type="button">&cross; Clear</button>
             </div>
             <div id="editor-left" class="editor-box"></div>
         </section>
@@ -55,8 +55,8 @@
             <div class="toolbar">
                 <button id="copyBtn" type="button">Copy</button>
                 <button id="deTofuBtn" type="button" disabled>DeTofu</button>
-                <button id="clearOutputBtn" type="button">Clear</button>
-                <button id="downloadOutputBtn" type="button">Download</button>
+                <button id="clearOutputBtn" type="button">&cross; Clear</button>
+                <button id="downloadOutputBtn" type="button">&DownArrowBar; Download</button>
             </div>
             <div id="editor-right" class="editor-box"></div>
         </section>
@@ -66,7 +66,7 @@
         </div>
         <div class="controls file-actions">
             <input id="textFile" type="file" accept=".txt,.md" hidden>
-            <button id="openFileBtn" type="button">Open File</button>
+            <button id="openFileBtn" type="button">&UpArrowBar; Open File</button>
             <button id="btn" type="button" class="primary" disabled>Convert →</button>
             <span id="openedFileName" class="file-name"></span>
         </div>
@@ -93,7 +93,7 @@
         </div>
         <div id="officeResult" class="office-result" hidden>
             <span id="officeResultText"></span>
-            <button id="officeDownloadBtn" type="button">Download converted file</button>
+            <button id="officeDownloadBtn" type="button">&DownArrowBar; Download converted file</button>
         </div>
     </section>
     <section class="panel" aria-labelledby="dictionaryHeading">
@@ -107,9 +107,9 @@
             them.</p>
         <div id="dictionaryCards"></div>
         <div class="dictionary-actions">
-            <button id="addDictionaryBtn" type="button" disabled>Add New Custom Dictionary</button>
-            <button id="applyDictionariesBtn" type="button" class="primary" disabled>Apply Dictionaries</button>
-            <button id="resetDictionariesBtn" type="button" disabled>Reset to Default</button>
+            <button id="addDictionaryBtn" type="button" disabled>&plus; Add New Custom Dictionary</button>
+            <button id="applyDictionariesBtn" type="button" class="primary" disabled>&check; Apply Dictionaries</button>
+            <button id="resetDictionariesBtn" type="button" disabled>&#x267B; Reset to Default</button>
         </div>
         <p class="dictionary-help">Edits are drafts until applied. Reset restores default dictionaries and retains draft
             cards for editing.</p>
