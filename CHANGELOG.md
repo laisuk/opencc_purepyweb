@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 - Update pyodide to v314.0.8
+- Update opencc_purepy to v1.5.3-beta1
 
 ---
 
