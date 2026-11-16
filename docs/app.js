@@ -592,9 +592,22 @@ const mime = {
     md: "text/markdown;charset=utf-8"
 };
 
-function convertedFileName(name) {
+async function convertedFileName(name) {
     const dot = name.lastIndexOf(".");
-    return dot > 0 ? `${name.slice(0, dot)}_converted${name.slice(dot)}` : `${name}_converted`;
+    const stem = dot > 0 ? name.slice(0, dot) : name;
+    const extension = dot > 0 ? name.slice(dot) : "";
+
+    if (!$("convertFilename").checked) {
+        return `${stem}_converted${extension}`;
+    }
+
+    const convertedStem = await convert(
+        stem,
+        $("config").value,
+        $("punctuation").checked
+    );
+
+    return `${convertedStem}_converted${extension}`;
 }
 
 async function convertDocument(file) {
@@ -662,7 +675,7 @@ if not _web_office_ok:
                 }
             }
         }
-        const outputName = convertedFileName(file.name);
+        const outputName = await convertedFileName(file.name);
         officeDownloadUrl = URL.createObjectURL(new Blob([outputBytes], {type: mime[format]}));
         officeDownloadName = outputName;
         $("officeResultText").textContent = `Ready: ${outputName} `;

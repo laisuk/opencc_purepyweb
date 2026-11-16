@@ -70,8 +70,16 @@
             <button id="btn" type="button" class="primary" disabled>Convert →</button>
             <span id="openedFileName" class="file-name"></span>
         </div>
-        <div class="controls encoding-row"><label><input type="checkbox" id="autoDetectDropEncoding" checked>
-            Auto-detect text encoding in Drop Zone</label></div>
+        <div class="controls encoding-row">
+            <label>
+                <input type="checkbox" id="autoDetectDropEncoding" checked>
+            Auto-detect text encoding in Drop Zone
+            </label>
+            <label>
+                <input type="checkbox" id="convertFilename">
+            Convert filename
+            </label>
+        </div>
         <div class="controls encoding-row">
             <label for="textEncoding">Text file encoding:</label>
             <select id="textEncoding">
