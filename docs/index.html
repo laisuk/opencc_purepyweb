@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>opencc_purepyweb — Chinese Conversion Tool</title>
     <link rel="stylesheet" href="./styles.css">
-    <!--    <link rel="icon" href="data:,">-->
+    <link rel="icon" href="favicon.ico">
     <script type="module" src="./app.js"></script>
 </head>
 <body>
@@ -116,7 +116,9 @@
     </section>
     <section class="panel" aria-label="Status and diagnostics">
         <h3 class="section-heading">Status / Diagnostics</h3>
-        <pre id="out" role="status" aria-live="polite">Not initialized. Click Initialize Pyodide when you want to convert.</pre>
+        <pre id="out" role="status" aria-live="polite">
+Not initialized. Click Initialize Pyodide when you want to convert.
+</pre>
         <div class="controls test-actions">
             <button id="smoke" type="button" disabled>Run smoke tests</button>
             <button id="large" type="button" disabled>Test parallel threshold (1M+)</button>
