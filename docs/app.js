@@ -5,7 +5,7 @@
 import {detectCjkEncoding} from "./cjkEncodingDetector.js";
 
 const $ = id => document.getElementById(id);
-const PACKAGE_VERSION = "1.5.3b1";
+const PACKAGE_VERSION = "1.5.3b2";
 const PYPI_VERSION = "1.5.2";
 const WHEEL_NAME = `opencc_purepy-${PACKAGE_VERSION}-py3-none-any.whl`;
 const PYODIDE_VERSION = "314.0.8";
@@ -597,15 +597,18 @@ async function convertedFileName(name) {
     const stem = dot > 0 ? name.slice(0, dot) : name;
     const extension = dot > 0 ? name.slice(dot) : "";
 
-    if (!$("convertFilename").checked) {
-        return `${stem}_converted${extension}`;
-    }
+    // Convert only the filename stem, preserving its extension.
+    const convertedStem = $("convertFilename").checked
+        ? await convert(stem, $("config").value, false)
+        : stem;
 
-    const convertedStem = await convert(
-        stem,
-        $("config").value,
-        $("punctuation").checked
-    );
+    // Reject invalid Windows filenames.
+    if (!convertedStem ||
+        /[<>:"/\\|?*\x00-\x1f]/u.test(convertedStem) ||
+        /[. ]$/u.test(convertedStem) ||
+        /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\..*)?$/iu.test(convertedStem)) {
+        throw new Error("Converted filename is invalid for Windows.");
+    }
 
     return `${convertedStem}_converted${extension}`;
 }
