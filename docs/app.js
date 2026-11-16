@@ -606,7 +606,7 @@ async function convertedFileName(name) {
     if (!convertedStem ||
         /[<>:"/\\|?*\x00-\x1f]/u.test(convertedStem) ||
         /[. ]$/u.test(convertedStem) ||
-        /^(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(?:\..*)?$/iu.test(convertedStem)) {
+        /^(CON|PRN|AUX|NUL|COM[1-9¹²³]|LPT[1-9¹²³])(?:\..*)?$/iu.test(convertedStem)) {
         throw new Error("Converted filename is invalid for Windows.");
     }
 
