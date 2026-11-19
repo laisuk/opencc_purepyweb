@@ -5,7 +5,7 @@
 import {detectCjkEncoding} from "./cjkEncodingDetector.js";
 
 const $ = id => document.getElementById(id);
-const PACKAGE_VERSION = "1.5.3b2";
+const PACKAGE_VERSION = "1.5.3b3";
 const PYPI_VERSION = "1.5.2";
 const WHEEL_NAME = `opencc_purepy-${PACKAGE_VERSION}-py3-none-any.whl`;
 const PYODIDE_VERSION = "314.0.8";
